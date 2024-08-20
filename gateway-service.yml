@@ -122,12 +122,6 @@ spring:
     main:
         banner-mode: 'off'
 
-    security:
-        oauth2:
-            resourceserver:
-                jwt:
-                    issuer-uri: http://keycloak:8080/realms/inwi-management
-
 springdoc:
     swagger-ui:
         path: /
