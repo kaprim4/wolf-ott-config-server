@@ -67,8 +67,7 @@ spring:
                 -   id: user-service
                     uri: lb://USER-SERVICE
                     predicates:
-                        - Path=/api/v1/users/**
-                        - Path=/api/v1/groups/**
+                        - Path=/api/v1/users/**, /api/v1/groups/**, /api/v1/packages/**, /api/v1/profiles/**
 
 
                 -   id: device-swagger
