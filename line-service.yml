@@ -6,8 +6,8 @@ spring:
         name: line-service
     datasource:
         url: jdbc:mysql://212.237.231.147:3306/xui
-        username: root
-        password: yahya@2024
+        username: yahya
+        password: yahya
         driver-class-name: com.mysql.cj.jdbc.Driver
     jpa:
         hibernate:
