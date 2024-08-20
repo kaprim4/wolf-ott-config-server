@@ -1,0 +1,107 @@
+eureka:
+    instance:
+        prefer-ip-address: true
+        hostname: eureka-0
+    client:
+        serviceUrl:
+            defaultZone: http://eureka:8761/eureka
+        register-with-eureka: true
+        fetch-registry: true
+
+spring:
+    application:
+        name: gateway-service
+    cloud:
+        kubernetes:
+            discovery:
+                enabled: true
+                all-namespaces: true
+        gateway:
+            routes:
+                - id: discovery-server
+                  uri: http://eureka:8761
+                  predicates:
+                      - Path=/eureka/web
+                  filters:
+                      - SetPath=/
+
+                - id: discovery-server-static
+                  uri: http://eureka:8761
+                  predicates:
+                      - Path=/eureka/**
+
+                - id: distributor-service
+                  uri: lb://DISTRIBUTOR-SERVICE
+                  predicates:
+                      - Path=/api/v1/distributors/**
+
+                - id: reception-service
+                  uri: lb://RECEPTION-SERVICE
+                  predicates:
+                      - Path=/api/v1/receptions/**
+
+                - id: lot-service
+                  uri: lb://RECEPTION-SERVICE
+                  predicates:
+                      - Path=/api/v1/lot/**
+
+                - id: scan-service
+                  uri: lb://RECEPTION-SERVICE
+                  predicates:
+                    - Path=/api/v1/scan/**
+
+                - id: document-service
+                  uri: lb://DOCUMENT-SERVICE
+                  predicates:
+                    - Path=/api/v1/document/**
+
+                - id: producer-association-service
+                  uri: lb://PRODUCER-ASSOCIATION-SERVICE
+                  predicates:
+                    - Path=/api/v1/producer/send
+
+                - id: distributor-swagger
+                  uri: lb://DISTRIBUTOR-SERVICE
+                  predicates:
+                    - Path=/distributor-service/**
+                  filters:
+                    - RewritePath=/distributor-service(?<segment>/?.*), $\{segment}
+
+                - id: reception-swagger
+                  uri: lb://RECEPTION-SERVICE
+                  predicates:
+                    - Path=/reception-service/**
+                  filters:
+                    - RewritePath=/reception-service(?<segment>/?.*), $\{segment}
+
+    main:
+        banner-mode: 'off'
+
+    security:
+        oauth2:
+            resourceserver:
+                jwt:
+                    issuer-uri: http://keycloak:8080/realms/inwi-management
+  
+springdoc:
+    swagger-ui:
+        path: /
+
+server:
+    port: 8181
+    forward-headers-strategy: framework
+
+management:
+    zipkin:
+        tracing:
+            endpoint: http://zipkin:9411/api/v2/spans
+    tracing:
+        sampling:
+            probability: 1.0
+    endpoints:
+        web:
+            exposure:
+                include: prometheus
+logging:
+    pattern:
+        level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"

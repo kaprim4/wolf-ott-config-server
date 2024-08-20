@@ -1,0 +1,35 @@
+server:
+    port: 9001
+
+eureka:
+    instance:
+        prefer-ip-address: true
+        hostname: localhost
+    client:
+        register-with-eureka: true
+        fetch-registry: true
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
+
+spring:
+    application:
+        name: auth-service
+    datasource:
+        url: jdbc:mysql://212.237.231.147:3306/xui
+        username: yahya
+        password: yahya
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: true
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.MySQL8Dialect
+
+logging:
+    pattern:
+        level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+
+jwt:
+    secret: "8e8f25c7-ad06-47ef-8681-08ae79fa7df4"
