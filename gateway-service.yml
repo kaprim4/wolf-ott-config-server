@@ -18,61 +18,102 @@ spring:
                 all-namespaces: true
         gateway:
             routes:
-                - id: discovery-server
-                  uri: http://eureka:8761
-                  predicates:
-                      - Path=/eureka/web
-                  filters:
-                      - SetPath=/
+                -   id: discovery-server
+                    uri: http://eureka:8761
+                    predicates:
+                        - Path=/eureka/web
+                    filters:
+                        - SetPath=/
 
-                - id: discovery-server-static
-                  uri: http://eureka:8761
-                  predicates:
-                      - Path=/eureka/**
+                -   id: discovery-server-static
+                    uri: http://eureka:8761
+                    predicates:
+                        - Path=/eureka/**
 
-                - id: distributor-service
-                  uri: lb://DISTRIBUTOR-SERVICE
-                  predicates:
-                      - Path=/api/v1/distributors/**
+                -   id: device-service
+                    uri: lb://DEVICE-SERVICE
+                    predicates:
+                        - Path=/api/v1/devices/**
 
-                - id: reception-service
-                  uri: lb://RECEPTION-SERVICE
-                  predicates:
-                      - Path=/api/v1/receptions/**
+                -   id: epg-service
+                    uri: lb://EPG-SERVICE
+                    predicates:
+                        - Path=/api/v1/epgs/**
 
-                - id: lot-service
-                  uri: lb://RECEPTION-SERVICE
-                  predicates:
-                      - Path=/api/v1/lot/**
+                -   id: line-service
+                    uri: lb://LINE-SERVICE
+                    predicates:
+                        - Path=/api/v1/lines/**
 
-                - id: scan-service
-                  uri: lb://RECEPTION-SERVICE
-                  predicates:
-                    - Path=/api/v1/scan/**
+                -   id: server-service
+                    uri: lb://SERVER-SERVICE
+                    predicates:
+                        - Path=/api/v1/servers/**
 
-                - id: document-service
-                  uri: lb://DOCUMENT-SERVICE
-                  predicates:
-                    - Path=/api/v1/document/**
+                -   id: stream-service
+                    uri: lb://STREAM-SERVICE
+                    predicates:
+                        - Path=/api/v1/streams/**
 
-                - id: producer-association-service
-                  uri: lb://PRODUCER-ASSOCIATION-SERVICE
-                  predicates:
-                    - Path=/api/v1/producer/send
+                -   id: ticketing-service
+                    uri: lb://TICKETING-SERVICE
+                    predicates:
+                        - Path=/api/v1/ticketing/**
 
-                - id: distributor-swagger
-                  uri: lb://DISTRIBUTOR-SERVICE
-                  predicates:
-                    - Path=/distributor-service/**
-                  filters:
-                    - RewritePath=/distributor-service(?<segment>/?.*), $\{segment}
+                -   id: user-service
+                    uri: lb://USERS-SERVICE
+                    predicates:
+                        - Path=/api/v1/users/**
 
-                - id: reception-swagger
-                  uri: lb://RECEPTION-SERVICE
-                  predicates:
-                    - Path=/reception-service/**
-                  filters:
-                    - RewritePath=/reception-service(?<segment>/?.*), $\{segment}
+
+                -   id: device-swagger
+                    uri: lb://DEVICE-SERVICE
+                    predicates:
+                        - Path=/device-service/**
+                    filters:
+                        - RewritePath=/device-service(?<segment>/?.*), $\{segment}
+
+                -   id: epg-swagger
+                    uri: lb://EPG-SERVICE
+                    predicates:
+                        - Path=/epg-service/**
+                    filters:
+                        - RewritePath=/epg-service(?<segment>/?.*), $\{segment}
+
+                -   id: line-swagger
+                    uri: lb://LINE-SERVICE
+                    predicates:
+                        - Path=/line-service/**
+                    filters:
+                        - RewritePath=/line-service(?<segment>/?.*), $\{segment}
+
+                -   id: server-swagger
+                    uri: lb://SERVER-SERVICE
+                    predicates:
+                        - Path=/server-service/**
+                    filters:
+                        - RewritePath=/server-service(?<segment>/?.*), $\{segment}
+
+                -   id: stream-swagger
+                    uri: lb://STREAM-SERVICE
+                    predicates:
+                        - Path=/stream-service/**
+                    filters:
+                        - RewritePath=/stream-service(?<segment>/?.*), $\{segment}
+
+                -   id: ticketing-swagger
+                    uri: lb://TICKETING-SERVICE
+                    predicates:
+                        - Path=/ticketing-service/**
+                    filters:
+                        - RewritePath=/ticketing-service(?<segment>/?.*), $\{segment}
+
+                -   id: user-swagger
+                    uri: lb://USERS-SERVICE
+                    predicates:
+                        - Path=/user-service/**
+                    filters:
+                        - RewritePath=/user-service(?<segment>/?.*), $\{segment}
 
     main:
         banner-mode: 'off'
@@ -82,7 +123,7 @@ spring:
             resourceserver:
                 jwt:
                     issuer-uri: http://keycloak:8080/realms/inwi-management
-  
+
 springdoc:
     swagger-ui:
         path: /
