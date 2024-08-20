@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: device-service
+  name: device-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: device-service
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: device-service
+    spec:
+      imagePullSecrets:
+        - name: dockerhub-secret
+      containers:
+        - env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://212.237.231.147:3306/xui
+            - name: SPRING_DATASOURCE_USERNAME
+              value: "yahya"
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: "yahya"
+            - name: SPRING_PROFILES_ACTIVE
+              value: docker
+          image: alismak/device-service:latest
+          name: device-service
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9002
+          resources: {}
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: device-service-svc
+  name: device-service-svc
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 9002
+  selector:
+    app: device-service

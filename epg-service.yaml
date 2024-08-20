@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: epg-service
+  name: epg-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: epg-service
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: epg-service
+    spec:
+      imagePullSecrets:
+        - name: dockerhub-secret
+      containers:
+        - env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://212.237.231.147:3306/xui
+            - name: SPRING_DATASOURCE_USERNAME
+              value: "yahya"
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: "yahya"
+            - name: SPRING_PROFILES_ACTIVE
+              value: docker
+          image: alismak/epg-service:latest
+          name: epg-service
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9003
+          resources: {}
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: epg-service-svc
+  name: epg-service-svc
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 9003
+  selector:
+    app: epg-service
