@@ -65,7 +65,7 @@ spring:
                         - Path=/api/v1/ticketing/**
 
                 -   id: user-service
-                    uri: lb://USERS-SERVICE
+                    uri: lb://USER-SERVICE
                     predicates:
                         - Path=/api/v1/users/**
 
