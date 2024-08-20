@@ -15,7 +15,7 @@ spring:
     application:
         name: auth-service
     datasource:
-        url: jdbc:mysql://212.237.231.147:3306/xui
+        url: jdbc:mysql://mysql:3306/xui
         username: yahya
         password: yahya
         driver-class-name: com.mysql.cj.jdbc.Driver
