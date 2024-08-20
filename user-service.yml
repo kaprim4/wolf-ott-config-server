@@ -1,5 +1,5 @@
 server:
-    port: 9002
+    port: 9009
 
 spring:
     application:
@@ -20,25 +20,24 @@ spring:
 eureka:
     instance:
         prefer-ip-address: true
-        hostname: localhost
+        hostname: eureka-0
     client:
+        serviceUrl:
+            defaultZone: http://eureka:8761/eureka
         register-with-eureka: true
         fetch-registry: true
-        serviceUrl:
-            defaultZone: http://localhost:8761/eureka/
 
-#management:
-#    zipkin:
-#        tracing:
-#            endpoint: http://zipkin:9411/api/v2/spans
-#    tracing:
-#        sampling:
-#            probability: 1.0
-#    endpoints:
-#        web:
-#            exposure:
-#                include: prometheus
-
+management:
+    zipkin:
+        tracing:
+            endpoint: http://zipkin:9411/api/v2/spans
+    tracing:
+        sampling:
+            probability: 1.0
+    endpoints:
+        web:
+            exposure:
+                include: prometheus
 logging:
     pattern:
         level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"

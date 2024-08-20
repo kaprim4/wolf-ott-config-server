@@ -1,3 +1,7 @@
+server:
+    port: 8181
+    forward-headers-strategy: framework
+
 eureka:
     instance:
         prefer-ip-address: true
@@ -127,10 +131,6 @@ spring:
 springdoc:
     swagger-ui:
         path: /
-
-server:
-    port: 8181
-    forward-headers-strategy: framework
 
 management:
     zipkin:

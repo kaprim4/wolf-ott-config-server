@@ -1,3 +1,6 @@
+server:
+    port: 9005
+
 eureka:
     instance:
         prefer-ip-address: true
@@ -21,9 +24,6 @@ spring:
             value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
             properties:
                 spring.json.type.mapping: event:com.procheck.notificationservice.ReceptionPlacedEvent
-
-server:
-    port: 9003
 
 management:
     zipkin:
