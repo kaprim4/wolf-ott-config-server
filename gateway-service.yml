@@ -1,7 +1,3 @@
-server:
-  port: 8181
-  forward-headers-strategy: framework
-
 eureka:
   instance:
     prefer-ip-address: true
@@ -122,29 +118,33 @@ spring:
   main:
     banner-mode: 'off'
 
-springdoc:
-  swagger-ui:
-    path: /
+  springdoc:
+    swagger-ui:
+      path: /
 
-management:
-  zipkin:
+  server:
+    port: 8181
+    forward-headers-strategy: framework
+
+  management:
+    zipkin:
+      tracing:
+        endpoint: http://zipkin:9411/api/v2/spans
     tracing:
-      endpoint: http://zipkin:9411/api/v2/spans
-  tracing:
-    sampling:
-      probability: 1.0
-  endpoints:
-    web:
-      exposure:
-        include: health, prometheus, metrics, info
-  endpoint:
-    health:
-      show-details: always
-      enabled: true
-    metrics:
-      enabled: true
-    prometheus:
-      enabled: true
-logging:
-  pattern:
-    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+      sampling:
+        probability: 1.0
+    endpoints:
+      web:
+        exposure:
+          include: health, prometheus, metrics, info
+    endpoint:
+      health:
+        show-details: always
+        enabled: true
+      metrics:
+        enabled: true
+      prometheus:
+        enabled: true
+  logging:
+    pattern:
+      level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
