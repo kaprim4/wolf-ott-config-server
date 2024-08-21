@@ -1,42 +1,42 @@
 server:
-    port: 9005
+  port: 9005
 
 eureka:
-    instance:
-        prefer-ip-address: true
-        hostname: eureka-0
-    client:
-        serviceUrl:
-            defaultZone: http://eureka.wolf-ott.svc.cluster.local:8761/eureka
-        register-with-eureka: true
-        fetch-registry: true
+  instance:
+    prefer-ip-address: true
+    hostname: eureka-0
+  client:
+    serviceUrl:
+      defaultZone: http://eureka.wolf-ott.svc.cluster.local:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
 
 spring:
-    application:
-        name: notification-service
-    kafka:
-        bootstrap-servers: broker:9092
-        template:
-            default-topic: notification
-        consumer:
-            group-id: notificationId
-            key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-            value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-            properties:
-                spring.json.type.mapping: event:com.procheck.notificationservice.ReceptionPlacedEvent
+  application:
+    name: notification-service
+  kafka:
+    bootstrap-servers: broker:9092
+    template:
+      default-topic: notification
+    consumer:
+      group-id: notificationId
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.type.mapping: event:com.procheck.notificationservice.ReceptionPlacedEvent
 
 management:
-    zipkin:
-        tracing:
-            endpoint: http://zipkin:9411/api/v2/spans/
+  zipkin:
     tracing:
-        sampling:
-            probability: 1
-    endpoints:
-        web:
-            exposure:
-                include: prometheus
+      endpoint: http://zipkin:9411/api/v2/spans/
+  tracing:
+    sampling:
+      probability: 1
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
 
 logging:
-    pattern:
-        level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"

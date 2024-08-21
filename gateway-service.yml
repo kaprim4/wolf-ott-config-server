@@ -3,14 +3,14 @@ server:
   forward-headers-strategy: framework
 
 eureka:
-    instance:
-        prefer-ip-address: true
-        hostname: eureka-0
-    client:
-        serviceUrl:
-            defaultZone: http://eureka.wolf-ott.svc.cluster.local:8761/eureka
-        register-with-eureka: true
-        fetch-registry: true
+  instance:
+    prefer-ip-address: true
+    hostname: eureka-0
+  client:
+    serviceUrl:
+      defaultZone: http://eureka.wolf-ott.svc.cluster.local:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
 
 spring:
   application:
