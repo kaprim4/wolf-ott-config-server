@@ -1,6 +1,16 @@
 server:
     port: 9008
 
+eureka:
+    instance:
+        prefer-ip-address: true
+        hostname: eureka-0
+    client:
+        serviceUrl:
+            defaultZone: http://eureka.wolf-ott.svc.cluster.local:8761/eureka
+        register-with-eureka: true
+        fetch-registry: true
+
 spring:
     application:
         name: ticketing-service
@@ -18,16 +28,6 @@ spring:
                 format_sql: true
         database: mysql
         database-platform: org.hibernate.dialect.MySQL8Dialect
-
-eureka:
-    instance:
-        prefer-ip-address: true
-        hostname: eureka-0
-    client:
-        serviceUrl:
-            defaultZone: http://eureka:8761/eureka
-        register-with-eureka: true
-        fetch-registry: true
 
 management:
     zipkin:
