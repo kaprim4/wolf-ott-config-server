@@ -47,7 +47,7 @@ spring:
                 -   id: line-service
                     uri: lb://LINE-SERVICE
                     predicates:
-                        - Path=/api/v1/lines/**
+                        - Path=/api/v1/lines/**, /api/v1/bouquets/**
 
                 -   id: server-service
                     uri: lb://SERVER-SERVICE
