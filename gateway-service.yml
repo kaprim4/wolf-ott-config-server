@@ -1,10 +1,10 @@
 eureka:
   instance:
     prefer-ip-address: true
-    hostname: ${HOSTNAME}
+    hostname: eureka-0
   client:
     serviceUrl:
-      defaultZone: ${EUREKA_SERVER_ADDRESS}
+      defaultZone: http://eureka:8761/eureka
     register-with-eureka: true
     fetch-registry: true
 
