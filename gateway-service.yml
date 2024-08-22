@@ -1,10 +1,10 @@
 eureka:
   instance:
     prefer-ip-address: true
-    hostname: discovery-server-0
+    hostname: eureka-0
   client:
     serviceUrl:
-      defaultZone: http://discovery-server:8761/eureka
+      defaultZone: http://eureka:8761/eureka
     register-with-eureka: true
     fetch-registry: true
 
@@ -18,14 +18,14 @@ spring:
         all-namespaces: true
     gateway:
       routes:
-        - id: discovery-server
+        - id: eureka
           uri: http://eureka:8761
           predicates:
             - Path=/eureka/web
           filters:
             - SetPath=/
 
-        - id: discovery-server-static
+        - id: eureka-static
           uri: http://eureka:8761
           predicates:
             - Path=/eureka/**
