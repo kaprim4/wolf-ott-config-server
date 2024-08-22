@@ -34,7 +34,7 @@ eureka:
     service-url:
       defaultZone: ${EUREKA_SERVER_ADDRESS}
   server:
-    enable-self-preservation: true
+    enable-self-preservation: false
 
 logging:
   level:
