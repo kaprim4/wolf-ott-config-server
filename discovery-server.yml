@@ -15,15 +15,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: health, prometheus, metrics, info
-  endpoint:
-    health:
-      show-details: always
-      enabled: true
-    metrics:
-      enabled: true
-    prometheus:
-      enabled: true
+        include: prometheus
 
 eureka:
   instance:
@@ -34,7 +26,7 @@ eureka:
     service-url:
       defaultZone: ${EUREKA_SERVER_ADDRESS}
   server:
-    enable-self-preservation: false
+    enable-self-preservation: true
 
 logging:
   level:
