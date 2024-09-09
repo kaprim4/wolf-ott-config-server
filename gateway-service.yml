@@ -18,6 +18,11 @@ spring:
         all-namespaces: true
     gateway:
       routes:
+        - id: auth-server
+          uri: http://localhost:9001
+          predicates:
+            - Path=/api/v1/auth/**
+            
         - id: eureka
           uri: http://eureka:8761
           predicates:
@@ -43,7 +48,7 @@ spring:
         - id: line-service
           uri: lb://LINE-SERVICE
           predicates:
-            - Path=/api/v1/lines/**
+            - Path=/api/v1/lines/**, /api/v1/bouquets/**
 
         - id: server-service
           uri: lb://SERVER-SERVICE
@@ -63,7 +68,7 @@ spring:
         - id: user-service
           uri: lb://USERS-SERVICE
           predicates:
-            - Path=/api/v1/users/**
+            - Path=/api/v1/users/**, /api/v1/groups/**, /api/v1/packages/**, /api/v1/profiles/**
 
         - id: device-swagger
           uri: lb://DEVICE-SERVICE
