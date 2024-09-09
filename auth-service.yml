@@ -15,15 +15,10 @@ spring:
   application:
     name: auth-service
   datasource:
-    url: jdbc:mysql://mysql:3306/xui
+    url: jdbc:mysql://212.237.231.147:3306/xui
     username: yahya
     password: yahya
     driver-class-name: com.mysql.cj.jdbc.Driver
-    hikari:
-      maximum-pool-size: 10
-      minimum-idle: 5
-      idle-timeout: 30000
-      max-lifetime: 1800000
   jpa:
     hibernate:
       ddl-auto: update
