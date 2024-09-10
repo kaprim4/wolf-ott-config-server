@@ -30,6 +30,11 @@ spring:
           predicates:
             - Path=/eureka/**
 
+        - id: auth-service
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/api/v1/auth/**
+
         - id: device-service
           uri: lb://DEVICE-SERVICE
           predicates:
