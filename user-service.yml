@@ -13,7 +13,7 @@ eureka:
 
 spring:
   application:
-    name: user-service
+    name: users-service
   datasource:
     url: jdbc:mysql://212.237.231.147:3306/xui
     username: yahya
