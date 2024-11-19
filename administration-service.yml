@@ -23,21 +23,29 @@ eureka:
         hostname: eureka-0
     client:
         serviceUrl:
-            defaultZone: http://localhost:8761/eureka
+            defaultZone: http://eureka:8761/eureka
         register-with-eureka: true
         fetch-registry: true
 
-#management:
-#    zipkin:
-#        tracing:
-#            endpoint: http://zipkin:9411/api/v2/spans
-#    tracing:
-#        sampling:
-#            probability: 1.0
-#    endpoints:
-#        web:
-#            exposure:
-#                include: prometheus
+management:
+    zipkin:
+        tracing:
+            endpoint: http://zipkin:9411/api/v2/spans
+    tracing:
+        sampling:
+            probability: 1.0
+    endpoints:
+        web:
+            exposure:
+                include: health, prometheus, metrics, info
+    endpoint:
+        health:
+            show-details: always
+            enabled: true
+        metrics:
+            enabled: true
+        prometheus:
+            enabled: true
 logging:
     pattern:
         level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
