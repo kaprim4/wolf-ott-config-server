@@ -52,3 +52,4 @@ logging:
 
 jwt:
     secret: "8e8f25c7-ad06-47ef-8681-08ae79fa7df4"
+    accessTokenValidity: 60  # 1 heure
