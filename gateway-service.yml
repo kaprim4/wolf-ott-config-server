@@ -77,7 +77,7 @@ spring:
                 -   id: administration-service
                     uri: lb://ADMINISTRATION-SERVICE
                     predicates:
-                        - Path=/api/v1/articles/**, /api/v1/ranks/**, /api/v1/parameters/**, /api/v1/applications/**
+                        - Path=/api/v1/articles/**, /api/v1/ranks/**, /api/v1/parameters/**, /api/v1/applications/**, /api/v1/dashboard/**
 
                 -   id: device-swagger
                     uri: lb://DEVICE-SERVICE
